@@ -1,10 +1,15 @@
 import scrapy
 import time
+from datetime import datetime
 
 class DesktopsSpider(scrapy.Spider):
     name = "desktops"
     allowed_domains = ["www.amazon.com"]
     start_urls = ["https://www.amazon.com/Best-Sellers-Desktop-Computers/zgbs/electronics/565098"]
+
+    def __init__(self, *args, **kwargs):
+        super(DesktopsSpider, self).__init__(*args, **kwargs)
+        self.crawl_time = datetime.now().isoformat()
 
     def parse(self, response):
         cards = response.css('div.p13n-grid-content')
@@ -15,6 +20,7 @@ class DesktopsSpider(scrapy.Spider):
             number_of_ratings = int(card.css('span.a-size-small::text').get().replace(',',''))
             price = card.css('span.a-size-base span::text').get()
             yield {
+                'crawl_time': self.crawl_time,
                 'rank' : rank,
                 'description' : description,
                 'rating' : rating,
