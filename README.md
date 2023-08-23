@@ -9,6 +9,6 @@ pip install -r requirements.txt
 
 2. Running the Scraper: After installing the dependencies, you can run the scraper using:
 
-scrapy crawl desktops
+scrapy crawl desktops -o desktops.json
 ## Deployment
 I've set this up on my Raspberry Pi to run as a cron job every hour. This ensures that I always have fresh data. 
